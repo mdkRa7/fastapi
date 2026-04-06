@@ -11,9 +11,11 @@ security = AuthX(config=config)
 
 app = FastAPI()
 
+
 class UserLoginSchema(BaseModel):
     login: str
     password: int
+
 
 @app.post("/login")
 def login(credentials: UserLoginSchema, response: Response):
@@ -21,9 +23,9 @@ def login(credentials: UserLoginSchema, response: Response):
         token = security.create_access_token(uid="12345")
         response.set_cookie(config.JWT_ACCESS_COOKIE_NAME, token)
         return {"access_token": token}
-    raise HTTPException(detail="Pizdabol", status_code=401)
+    raise HTTPException(detail="Error", status_code=401)
 
 
 @app.get("/protected", dependencies=[Depends(security.access_token_required)])
 def protected():
-    return {"data": "Ebat"}
+    return {"data": "Data"}
