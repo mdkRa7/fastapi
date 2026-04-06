@@ -2,7 +2,7 @@
 import pytest
 from httpx import AsyncClient, ASGITransport
 
-from test1 import app
+from garbage.test1 import app
 
 @pytest.mark.asyncio
 async def test_post_cars():
